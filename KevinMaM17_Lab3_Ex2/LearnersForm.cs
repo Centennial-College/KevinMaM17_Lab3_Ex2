@@ -20,6 +20,8 @@ namespace KevinMaM17_Lab3_Ex2
             InitializeComponent();
         }
 
+        private bool currentlyEditing = false;
+
         private void LearnersForm_Load(object sender, EventArgs e)
         {
             this.loadUnfilteredResults();
@@ -32,6 +34,8 @@ namespace KevinMaM17_Lab3_Ex2
             this.addBtn.Enabled = false;
             this.deleteBtn.Enabled = false;
             this.updateBtn.Enabled = false;
+            this.learnerIDTb.Enabled = true;
+            currentlyEditing = false;
 
             searchTb.Clear();
 
@@ -88,42 +92,128 @@ namespace KevinMaM17_Lab3_Ex2
 
         private void learnerDetailsTb_TextChanged(object sender, EventArgs e)
         {
-            addBtn.Enabled = updateBtn.Enabled = deleteBtn.Enabled
-                = !String.IsNullOrEmpty(learnerIDTb.Text)
+            if (!currentlyEditing)
+                addBtn.Enabled = !String.IsNullOrEmpty(learnerIDTb.Text)
                 && !String.IsNullOrEmpty(learnerNameTb.Text)
-                && !String.IsNullOrEmpty(enrolledProgramTb.Text);
+                && !String.IsNullOrEmpty(enrolledProgramTb.Text)
+                && !String.IsNullOrEmpty(favSubTb.Text)
+                && !String.IsNullOrEmpty(numLangTb.Text)
+                && !String.IsNullOrEmpty(strongSkillTb.Text);
+            else
+                updateBtn.Enabled = deleteBtn.Enabled
+                    = !String.IsNullOrEmpty(learnerIDTb.Text)
+                    && !String.IsNullOrEmpty(learnerNameTb.Text)
+                    && !String.IsNullOrEmpty(enrolledProgramTb.Text)
+                    && !String.IsNullOrEmpty(favSubTb.Text)
+                    && !String.IsNullOrEmpty(numLangTb.Text)
+                    && !String.IsNullOrEmpty(strongSkillTb.Text);
         }
 
         private void browseAllBtn_Click(object sender, EventArgs e)
         {
             this.loadUnfilteredResults();
+            this.resetFormControls();
         }
 
         private void addBtn_Click(object sender, EventArgs e)
         {
             using (var dbContext = new KevinDBEntities())
             {
-                //create an instance of the Entity object
-                KevinTB learner = new KevinTB
+                try
                 {
-                    learnerID = int.Parse(learnerIDTb.Text),
-                    learnerName = learnerNameTb.Text,
-                    enrolledProgram = enrolledProgramTb.Text,
-                    favoriteSubject = String.IsNullOrEmpty(favSubTb.Text) ? null : favSubTb.Text,
-                    numberOfLanguages = String.IsNullOrEmpty(numLangTb.Text) ? 1 : int.Parse(numLangTb.Text),
-                    strongestSkill = String.IsNullOrEmpty(strongSkillTb.Text) ? null : strongSkillTb.Text
-                };
+                    //create an instance of the Entity object
+                    KevinTB learner = new KevinTB
+                    {
+                        learnerID = int.Parse(learnerIDTb.Text),
+                        learnerName = learnerNameTb.Text,
+                        enrolledProgram = enrolledProgramTb.Text,
+                        favoriteSubject = favSubTb.Text,
+                        numberOfLanguages = int.Parse(numLangTb.Text),
+                        strongestSkill = strongSkillTb.Text
+                    };
 
-                //adds the given entity to the context underlying the set
-                dbContext.KevinTBs.Add(learner);
-                dbContext.Entry(learner).State = EntityState.Added;
+                    //adds the given entity to the context underlying the set
+                    dbContext.KevinTBs.Add(learner);
+                    dbContext.Entry(learner).State = EntityState.Added;
 
-                //save dbContext - also save data to the db
-                dbContext.SaveChanges();
-                MessageBox.Show($"Added new learner to the directory: {learner.learnerName}");
+                    //save dbContext - also save data to the db
+                    dbContext.SaveChanges();
+                    MessageBox.Show($"Added new learner to the directory: {learner.learnerName}");
+                    this.loadUnfilteredResults();
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show($"LearnerID and Number of Languages must be positive integer numbers!");
+                }
             }
 
-            this.loadUnfilteredResults();
+        }
+
+        private void updateBtn_Click(object sender, EventArgs e)
+        {
+            KevinTB learner;
+
+            //Get learner for the given learnerId
+            using (var dbContext = new KevinDBEntities())
+            {
+                learner = dbContext.KevinTBs
+                    .Where(l => l.learnerID == int.Parse(learnerIDTb.Text))
+                    .FirstOrDefault<KevinTB>();
+            }
+
+            // Update learner info in disconnected mode (out of dbContext scope)
+            if (learner != null)
+            {
+                try
+                {
+                    learner.learnerID = int.Parse(learnerIDTb.Text);
+                    learner.learnerName = learnerNameTb.Text;
+                    learner.enrolledProgram = enrolledProgramTb.Text;
+                    learner.favoriteSubject = favSubTb.Text;
+                    learner.numberOfLanguages = int.Parse(numLangTb.Text);
+                    learner.strongestSkill = strongSkillTb.Text;
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show($"LearnerID and Number of Languages must be positive integer numbers!");
+                }
+            }
+
+            // Save modified entity using new Context
+            using (var dbContext = new KevinDBEntities())
+            {
+                // Mark entity as modified
+                dbContext.Entry(learner).State = EntityState.Modified;
+
+                // Save changes to database
+                dbContext.SaveChanges();
+            }
+            MessageBox.Show($"{learner.learnerName} has been updated");
+        }
+
+        private void kevinTBDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            KevinTB learner;
+            int selectedId = int.Parse(kevinTBDataGridView.SelectedRows[0].Cells[0].Value.ToString());
+
+            //Get learner for the given learnerId
+            using (var dbContext = new KevinDBEntities())
+            {
+                learner = dbContext.KevinTBs
+                    .Where(l => l.learnerID == selectedId)
+                    .FirstOrDefault<KevinTB>();
+            }
+
+            learnerIDTb.Text = learner.learnerID.ToString();
+            learnerNameTb.Text = learner.learnerName;
+            enrolledProgramTb.Text = learner.enrolledProgram;
+            favSubTb.Text = learner.favoriteSubject;
+            numLangTb.Text = learner.numberOfLanguages.ToString();
+            strongSkillTb.Text = learner.strongestSkill.ToString();
+
+            currentlyEditing = true;
+            learnerIDTb.Enabled = false;
+            addBtn.Enabled = false;
         }
     }
 }

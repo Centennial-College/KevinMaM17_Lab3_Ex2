@@ -133,6 +133,7 @@
             this.favSubTb.Name = "favSubTb";
             this.favSubTb.Size = new System.Drawing.Size(188, 20);
             this.favSubTb.TabIndex = 7;
+            this.favSubTb.TextChanged += new System.EventHandler(this.learnerDetailsTb_TextChanged);
             // 
             // learnerIDTb
             // 
@@ -168,6 +169,7 @@
             this.numLangTb.Name = "numLangTb";
             this.numLangTb.Size = new System.Drawing.Size(188, 20);
             this.numLangTb.TabIndex = 9;
+            this.numLangTb.TextChanged += new System.EventHandler(this.learnerDetailsTb_TextChanged);
             // 
             // strongSkillTb
             // 
@@ -176,6 +178,7 @@
             this.strongSkillTb.Name = "strongSkillTb";
             this.strongSkillTb.Size = new System.Drawing.Size(188, 20);
             this.strongSkillTb.TabIndex = 11;
+            this.strongSkillTb.TextChanged += new System.EventHandler(this.learnerDetailsTb_TextChanged);
             // 
             // learnerDetailsGroupBox
             // 
@@ -217,6 +220,7 @@
             this.updateBtn.TabIndex = 14;
             this.updateBtn.Text = "Update";
             this.updateBtn.UseVisualStyleBackColor = true;
+            this.updateBtn.Click += new System.EventHandler(this.updateBtn_Click);
             // 
             // deleteBtn
             // 
@@ -320,6 +324,7 @@
             this.kevinTBDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.kevinTBDataGridView.Size = new System.Drawing.Size(368, 344);
             this.kevinTBDataGridView.TabIndex = 0;
+            this.kevinTBDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.kevinTBDataGridView_CellClick);
             // 
             // dataGridViewTextBoxColumn1
             // 
