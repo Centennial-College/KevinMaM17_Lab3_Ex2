@@ -20,37 +20,54 @@ namespace KevinMaM17_Lab3_Ex2
             InitializeComponent();
         }
 
-        //Entity Framework DbContext
-        private KevinDBEntities dbContext = null;
-
         private void LearnersForm_Load(object sender, EventArgs e)
         {
-            this._refreshContacts();
+            this.loadUnfilteredResults();
+            this.searchBtn.Enabled = false;
         }
 
         /// <summary>
         /// Fills the kevinTBBindingSource with all rows, ordered by learnerID
         /// </summary>
-        private void _refreshContacts()
+        private void loadUnfilteredResults()
         {
-            //dispose of old dbContext, if any
-            if (dbContext != null)
+            using (var dbContext = new KevinDBEntities())
             {
-                dbContext.Dispose();
+
+                //load kevintb table ordered by learnerid
+                dbContext.KevinTBs
+                    .OrderBy(learner => learner.learnerID)
+                    .Load();
+
+                //specify DataSource for kevinTBBindingSource
+                kevinTBBindingSource.DataSource = dbContext.KevinTBs.Local;
+                kevinTBBindingSource.MoveFirst(); // go to first result    
             }
-
-            // create new DbContext so we can reorder records based on edits
-            dbContext = new KevinDBEntities();
-
-            //load kevintb table ordered by learnerid
-            dbContext.KevinTBs
-                .OrderBy(learner => learner.learnerID)
-                .Load();
-
-            //specify DataSource for kevinTBBindingSource
-            kevinTBBindingSource.DataSource = dbContext.KevinTBs.Local;
-            kevinTBBindingSource.MoveFirst(); // go to first result    
         }
 
+        private void searchBtn_Click(object sender, EventArgs e)
+        {
+            using (var dbContext = new KevinDBEntities())
+            {
+                var filteredResults = from learner in dbContext.KevinTBs
+                                      where learner.enrolledProgram.Equals(searchTb.Text)
+                                      select new
+                                      {
+                                          learner.learnerID,
+                                          learner.learnerName,
+                                          learner.enrolledProgram
+                                      };
+
+                searchTb.Clear();
+
+                kevinTBBindingSource.DataSource = filteredResults.ToList();
+                kevinTBBindingSource.MoveFirst();
+            }
+        }
+
+        private void searchTb_TextChanged(object sender, EventArgs e)
+        {
+            searchBtn.Enabled = !String.IsNullOrEmpty(searchTb.Text);
+        }
     }
 }

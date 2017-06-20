@@ -47,6 +47,7 @@
             this.deleteBtn = new System.Windows.Forms.Button();
             this.searchBtn = new System.Windows.Forms.Button();
             this.contentSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.browseAllBtn = new System.Windows.Forms.Button();
             this.searchGrouupBox = new System.Windows.Forms.GroupBox();
             this.searchTb = new System.Windows.Forms.TextBox();
             this.searchLbl = new System.Windows.Forms.Label();
@@ -55,7 +56,6 @@
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.kevinTBBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.browseAllBtn = new System.Windows.Forms.Button();
             this.learnerDetailsGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.contentSplitContainer)).BeginInit();
             this.contentSplitContainer.Panel1.SuspendLayout();
@@ -232,6 +232,7 @@
             this.searchBtn.TabIndex = 16;
             this.searchBtn.Text = "Search";
             this.searchBtn.UseVisualStyleBackColor = true;
+            this.searchBtn.Click += new System.EventHandler(this.searchBtn_Click);
             // 
             // contentSplitContainer
             // 
@@ -255,6 +256,15 @@
             this.contentSplitContainer.SplitterDistance = 400;
             this.contentSplitContainer.TabIndex = 17;
             // 
+            // browseAllBtn
+            // 
+            this.browseAllBtn.Location = new System.Drawing.Point(294, 236);
+            this.browseAllBtn.Name = "browseAllBtn";
+            this.browseAllBtn.Size = new System.Drawing.Size(75, 23);
+            this.browseAllBtn.TabIndex = 18;
+            this.browseAllBtn.Text = "Browse All";
+            this.browseAllBtn.UseVisualStyleBackColor = true;
+            // 
             // searchGrouupBox
             // 
             this.searchGrouupBox.Controls.Add(this.searchTb);
@@ -275,6 +285,7 @@
             this.searchTb.Name = "searchTb";
             this.searchTb.Size = new System.Drawing.Size(163, 20);
             this.searchTb.TabIndex = 12;
+            this.searchTb.TextChanged += new System.EventHandler(this.searchTb_TextChanged);
             // 
             // searchLbl
             // 
@@ -332,15 +343,6 @@
             // kevinTBBindingSource
             // 
             this.kevinTBBindingSource.DataSource = typeof(KevinDBModel.KevinTB);
-            // 
-            // browseAllBtn
-            // 
-            this.browseAllBtn.Location = new System.Drawing.Point(294, 236);
-            this.browseAllBtn.Name = "browseAllBtn";
-            this.browseAllBtn.Size = new System.Drawing.Size(75, 23);
-            this.browseAllBtn.TabIndex = 18;
-            this.browseAllBtn.Text = "Browse All";
-            this.browseAllBtn.UseVisualStyleBackColor = true;
             // 
             // LearnersForm
             // 
