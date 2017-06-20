@@ -23,7 +23,24 @@ namespace KevinMaM17_Lab3_Ex2
         private void LearnersForm_Load(object sender, EventArgs e)
         {
             this.loadUnfilteredResults();
+            this.resetFormControls();
+        }
+
+        private void resetFormControls()
+        {
             this.searchBtn.Enabled = false;
+            this.addBtn.Enabled = false;
+            this.deleteBtn.Enabled = false;
+            this.updateBtn.Enabled = false;
+
+            searchTb.Clear();
+
+            learnerIDTb.Clear();
+            learnerNameTb.Clear();
+            enrolledProgramTb.Clear();
+            favSubTb.Clear();
+            numLangTb.Clear();
+            strongSkillTb.Clear();
         }
 
         /// <summary>
@@ -58,10 +75,9 @@ namespace KevinMaM17_Lab3_Ex2
                                           learner.enrolledProgram
                                       };
 
-                searchTb.Clear();
-
                 kevinTBBindingSource.DataSource = filteredResults.ToList();
                 kevinTBBindingSource.MoveFirst();
+                this.resetFormControls();
             }
         }
 
@@ -70,8 +86,43 @@ namespace KevinMaM17_Lab3_Ex2
             searchBtn.Enabled = !String.IsNullOrEmpty(searchTb.Text);
         }
 
+        private void learnerDetailsTb_TextChanged(object sender, EventArgs e)
+        {
+            addBtn.Enabled = updateBtn.Enabled = deleteBtn.Enabled
+                = !String.IsNullOrEmpty(learnerIDTb.Text)
+                && !String.IsNullOrEmpty(learnerNameTb.Text)
+                && !String.IsNullOrEmpty(enrolledProgramTb.Text);
+        }
+
         private void browseAllBtn_Click(object sender, EventArgs e)
         {
+            this.loadUnfilteredResults();
+        }
+
+        private void addBtn_Click(object sender, EventArgs e)
+        {
+            using (var dbContext = new KevinDBEntities())
+            {
+                //create an instance of the Entity object
+                KevinTB learner = new KevinTB
+                {
+                    learnerID = int.Parse(learnerIDTb.Text),
+                    learnerName = learnerNameTb.Text,
+                    enrolledProgram = enrolledProgramTb.Text,
+                    favoriteSubject = String.IsNullOrEmpty(favSubTb.Text) ? null : favSubTb.Text,
+                    numberOfLanguages = String.IsNullOrEmpty(numLangTb.Text) ? 1 : int.Parse(numLangTb.Text),
+                    strongestSkill = String.IsNullOrEmpty(strongSkillTb.Text) ? null : strongSkillTb.Text
+                };
+
+                //adds the given entity to the context underlying the set
+                dbContext.KevinTBs.Add(learner);
+                dbContext.Entry(learner).State = EntityState.Added;
+
+                //save dbContext - also save data to the db
+                dbContext.SaveChanges();
+                MessageBox.Show($"Added new learner to the directory: {learner.learnerName}");
+            }
+
             this.loadUnfilteredResults();
         }
     }

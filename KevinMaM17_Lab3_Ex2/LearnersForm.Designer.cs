@@ -141,6 +141,7 @@
             this.learnerIDTb.Name = "learnerIDTb";
             this.learnerIDTb.Size = new System.Drawing.Size(188, 20);
             this.learnerIDTb.TabIndex = 1;
+            this.learnerIDTb.TextChanged += new System.EventHandler(this.learnerDetailsTb_TextChanged);
             // 
             // learnerNameTb
             // 
@@ -149,6 +150,7 @@
             this.learnerNameTb.Name = "learnerNameTb";
             this.learnerNameTb.Size = new System.Drawing.Size(188, 20);
             this.learnerNameTb.TabIndex = 3;
+            this.learnerNameTb.TextChanged += new System.EventHandler(this.learnerDetailsTb_TextChanged);
             // 
             // enrolledProgramTb
             // 
@@ -157,6 +159,7 @@
             this.enrolledProgramTb.Name = "enrolledProgramTb";
             this.enrolledProgramTb.Size = new System.Drawing.Size(188, 20);
             this.enrolledProgramTb.TabIndex = 5;
+            this.enrolledProgramTb.TextChanged += new System.EventHandler(this.learnerDetailsTb_TextChanged);
             // 
             // numLangTb
             // 
@@ -204,6 +207,7 @@
             this.addBtn.TabIndex = 13;
             this.addBtn.Text = "Add";
             this.addBtn.UseVisualStyleBackColor = true;
+            this.addBtn.Click += new System.EventHandler(this.addBtn_Click);
             // 
             // updateBtn
             // 
