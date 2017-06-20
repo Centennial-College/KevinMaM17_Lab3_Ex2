@@ -262,8 +262,9 @@
             this.browseAllBtn.Name = "browseAllBtn";
             this.browseAllBtn.Size = new System.Drawing.Size(75, 23);
             this.browseAllBtn.TabIndex = 18;
-            this.browseAllBtn.Text = "Browse All";
+            this.browseAllBtn.Text = "Display All";
             this.browseAllBtn.UseVisualStyleBackColor = true;
+            this.browseAllBtn.Click += new System.EventHandler(this.browseAllBtn_Click);
             // 
             // searchGrouupBox
             // 

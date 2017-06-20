@@ -69,5 +69,10 @@ namespace KevinMaM17_Lab3_Ex2
         {
             searchBtn.Enabled = !String.IsNullOrEmpty(searchTb.Text);
         }
+
+        private void browseAllBtn_Click(object sender, EventArgs e)
+        {
+            this.loadUnfilteredResults();
+        }
     }
 }
