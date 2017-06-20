@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using KevinDBModel;
+using System.Data.Entity;
+
 namespace KevinMaM17_Lab3_Ex2
 {
     public partial class LearnersForm : Form
@@ -17,54 +20,37 @@ namespace KevinMaM17_Lab3_Ex2
             InitializeComponent();
         }
 
-        private void learnerIDLbl_Click(object sender, EventArgs e)
-        {
+        //Entity Framework DbContext
+        private KevinDBEntities dbContext = null;
 
+        private void LearnersForm_Load(object sender, EventArgs e)
+        {
+            this._refreshContacts();
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Fills the kevinTBBindingSource with all rows, ordered by learnerID
+        /// </summary>
+        private void _refreshContacts()
         {
+            //dispose of old dbContext, if any
+            if (dbContext != null)
+            {
+                dbContext.Dispose();
+            }
 
+            // create new DbContext so we can reorder records based on edits
+            dbContext = new KevinDBEntities();
+
+            //load kevintb table ordered by learnerid
+            dbContext.KevinTBs
+                .OrderBy(learner => learner.learnerID)
+                .Load();
+
+            //specify DataSource for kevinTBBindingSource
+            kevinTBBindingSource.DataSource = dbContext.KevinTBs.Local;
+            kevinTBBindingSource.MoveFirst(); // go to first result    
         }
 
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void learnerNameLbl_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void enrolledProgramLbl_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox4_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox5_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void favSubjLbl_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numLanguagesLbl_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void strongestSkillLbl_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
