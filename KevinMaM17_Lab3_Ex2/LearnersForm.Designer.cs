@@ -51,9 +51,6 @@
             this.kevinTBDataGridView = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.learnerDetailsGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.contentSplitContainer)).BeginInit();
@@ -242,6 +239,7 @@
             // contentSplitContainer
             // 
             this.contentSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.contentSplitContainer.IsSplitterFixed = true;
             this.contentSplitContainer.Location = new System.Drawing.Point(0, 0);
             this.contentSplitContainer.Name = "contentSplitContainer";
             // 
@@ -249,8 +247,8 @@
             // 
             this.contentSplitContainer.Panel2.AutoScroll = true;
             this.contentSplitContainer.Panel2.Controls.Add(this.kevinTBDataGridView);
-            this.contentSplitContainer.Size = new System.Drawing.Size(740, 274);
-            this.contentSplitContainer.SplitterDistance = 377;
+            this.contentSplitContainer.Size = new System.Drawing.Size(772, 274);
+            this.contentSplitContainer.SplitterDistance = 400;
             this.contentSplitContainer.TabIndex = 17;
             // 
             // kevinTBBindingSource
@@ -264,64 +262,51 @@
             this.kevinTBDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4,
-            this.dataGridViewTextBoxColumn5,
             this.dataGridViewTextBoxColumn6});
             this.kevinTBDataGridView.DataSource = this.kevinTBBindingSource;
             this.kevinTBDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kevinTBDataGridView.Location = new System.Drawing.Point(0, 0);
             this.kevinTBDataGridView.Name = "kevinTBDataGridView";
-            this.kevinTBDataGridView.Size = new System.Drawing.Size(359, 274);
+            this.kevinTBDataGridView.Size = new System.Drawing.Size(368, 274);
             this.kevinTBDataGridView.TabIndex = 0;
             // 
             // dataGridViewTextBoxColumn1
             // 
+            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.dataGridViewTextBoxColumn1.DataPropertyName = "learnerID";
-            this.dataGridViewTextBoxColumn1.HeaderText = "learnerID";
+            this.dataGridViewTextBoxColumn1.HeaderText = "Learner ID";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.Width = 82;
             // 
             // dataGridViewTextBoxColumn2
             // 
+            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.dataGridViewTextBoxColumn2.DataPropertyName = "learnerName";
-            this.dataGridViewTextBoxColumn2.HeaderText = "learnerName";
+            this.dataGridViewTextBoxColumn2.HeaderText = "Learner Name";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "strongestSkill";
-            this.dataGridViewTextBoxColumn3.HeaderText = "strongestSkill";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "numberOfLanguages";
-            this.dataGridViewTextBoxColumn4.HeaderText = "numberOfLanguages";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "favoriteSubject";
-            this.dataGridViewTextBoxColumn5.HeaderText = "favoriteSubject";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn2.Width = 99;
             // 
             // dataGridViewTextBoxColumn6
             // 
+            this.dataGridViewTextBoxColumn6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.dataGridViewTextBoxColumn6.DataPropertyName = "enrolledProgram";
-            this.dataGridViewTextBoxColumn6.HeaderText = "enrolledProgram";
+            this.dataGridViewTextBoxColumn6.HeaderText = "Enrolled Program";
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.Width = 103;
             // 
             // LearnersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(740, 274);
+            this.ClientSize = new System.Drawing.Size(772, 274);
             this.Controls.Add(this.searchBtn);
             this.Controls.Add(this.deleteBtn);
             this.Controls.Add(this.updateBtn);
             this.Controls.Add(this.addBtn);
             this.Controls.Add(this.learnerDetailsGroupBox);
             this.Controls.Add(this.contentSplitContainer);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.MaximizeBox = false;
             this.Name = "LearnersForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Learners Directory";
@@ -357,13 +342,10 @@
         private System.Windows.Forms.Button searchBtn;
         private System.Windows.Forms.SplitContainer contentSplitContainer;
         private System.Windows.Forms.DataGridView kevinTBDataGridView;
+        private System.Windows.Forms.BindingSource kevinTBBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private System.Windows.Forms.BindingSource kevinTBBindingSource;
     }
 }
 
