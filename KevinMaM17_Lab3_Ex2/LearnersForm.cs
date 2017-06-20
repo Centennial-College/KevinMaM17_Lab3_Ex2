@@ -164,21 +164,18 @@ namespace KevinMaM17_Lab3_Ex2
             }
 
             // Update learner info in disconnected mode (out of dbContext scope)
-            if (learner != null)
+            try
             {
-                try
-                {
-                    learner.learnerID = int.Parse(learnerIDTb.Text);
-                    learner.learnerName = learnerNameTb.Text;
-                    learner.enrolledProgram = enrolledProgramTb.Text;
-                    learner.favoriteSubject = favSubTb.Text;
-                    learner.numberOfLanguages = int.Parse(numLangTb.Text);
-                    learner.strongestSkill = strongSkillTb.Text;
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show($"LearnerID and Number of Languages must be positive integer numbers!");
-                }
+                learner.learnerID = int.Parse(learnerIDTb.Text);
+                learner.learnerName = learnerNameTb.Text;
+                learner.enrolledProgram = enrolledProgramTb.Text;
+                learner.favoriteSubject = favSubTb.Text;
+                learner.numberOfLanguages = int.Parse(numLangTb.Text);
+                learner.strongestSkill = strongSkillTb.Text;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show($"LearnerID and Number of Languages must be positive integer numbers!");
             }
 
             // Save modified entity using new Context
@@ -218,6 +215,33 @@ namespace KevinMaM17_Lab3_Ex2
             currentlyEditing = true;
             learnerIDTb.Enabled = false;
             addBtn.Enabled = false;
+        }
+
+        private void deleteBtn_Click(object sender, EventArgs e)
+        {
+            KevinTB learner;
+            int deletingId = int.Parse(learnerIDTb.Text);
+
+            //Get learner for the given learnerId
+            using (var dbContext = new KevinDBEntities())
+            {
+                learner = dbContext.KevinTBs
+                    .Where(l => l.learnerID == deletingId)
+                    .FirstOrDefault<KevinTB>();
+            }
+
+
+            // Create new context for disconnected scenario
+            using (var dbContext = new KevinDBEntities())
+            {
+                dbContext.Entry(learner).State = EntityState.Deleted;
+
+                // Save changes to database
+                dbContext.SaveChanges();
+            }
+            MessageBox.Show($"{learner.learnerName} has been deleted");
+            this.loadUnfilteredResults();
+            this.resetFormControls();
         }
     }
 }
