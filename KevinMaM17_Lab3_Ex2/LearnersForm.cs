@@ -140,6 +140,7 @@ namespace KevinMaM17_Lab3_Ex2
                     dbContext.SaveChanges();
                     MessageBox.Show($"Added new learner to the directory: {learner.learnerName}");
                     this.loadUnfilteredResults();
+                    this.resetFormControls();
                 }
                 catch (Exception)
                 {
@@ -152,12 +153,13 @@ namespace KevinMaM17_Lab3_Ex2
         private void updateBtn_Click(object sender, EventArgs e)
         {
             KevinTB learner;
+            int updatingId = int.Parse(learnerIDTb.Text);
 
             //Get learner for the given learnerId
             using (var dbContext = new KevinDBEntities())
             {
                 learner = dbContext.KevinTBs
-                    .Where(l => l.learnerID == int.Parse(learnerIDTb.Text))
+                    .Where(l => l.learnerID == updatingId)
                     .FirstOrDefault<KevinTB>();
             }
 
@@ -189,6 +191,8 @@ namespace KevinMaM17_Lab3_Ex2
                 dbContext.SaveChanges();
             }
             MessageBox.Show($"{learner.learnerName} has been updated");
+            this.loadUnfilteredResults();
+            this.resetFormControls();
         }
 
         private void kevinTBDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
