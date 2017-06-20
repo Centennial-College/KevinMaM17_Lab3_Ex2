@@ -51,10 +51,11 @@
             this.searchTb = new System.Windows.Forms.TextBox();
             this.searchLbl = new System.Windows.Forms.Label();
             this.kevinTBDataGridView = new System.Windows.Forms.DataGridView();
-            this.kevinTBBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.kevinTBBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.browseAllBtn = new System.Windows.Forms.Button();
             this.learnerDetailsGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.contentSplitContainer)).BeginInit();
             this.contentSplitContainer.Panel1.SuspendLayout();
@@ -206,7 +207,7 @@
             // 
             // updateBtn
             // 
-            this.updateBtn.Location = new System.Drawing.Point(150, 236);
+            this.updateBtn.Location = new System.Drawing.Point(106, 236);
             this.updateBtn.Name = "updateBtn";
             this.updateBtn.Size = new System.Drawing.Size(75, 23);
             this.updateBtn.TabIndex = 14;
@@ -215,7 +216,7 @@
             // 
             // deleteBtn
             // 
-            this.deleteBtn.Location = new System.Drawing.Point(288, 236);
+            this.deleteBtn.Location = new System.Drawing.Point(200, 236);
             this.deleteBtn.Name = "deleteBtn";
             this.deleteBtn.Size = new System.Drawing.Size(75, 23);
             this.deleteBtn.TabIndex = 15;
@@ -241,7 +242,9 @@
             // 
             // contentSplitContainer.Panel1
             // 
+            this.contentSplitContainer.Panel1.Controls.Add(this.browseAllBtn);
             this.contentSplitContainer.Panel1.Controls.Add(this.deleteBtn);
+            this.contentSplitContainer.Panel1.Controls.Add(this.addBtn);
             this.contentSplitContainer.Panel1.Controls.Add(this.searchGrouupBox);
             // 
             // contentSplitContainer.Panel2
@@ -263,14 +266,14 @@
             this.searchGrouupBox.Size = new System.Drawing.Size(352, 64);
             this.searchGrouupBox.TabIndex = 17;
             this.searchGrouupBox.TabStop = false;
-            this.searchGrouupBox.Text = "Find a learner by learner Id";
+            this.searchGrouupBox.Text = "Find learners by enrolled program";
             // 
             // searchTb
             // 
             this.searchTb.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.searchTb.Location = new System.Drawing.Point(69, 30);
+            this.searchTb.Location = new System.Drawing.Point(94, 30);
             this.searchTb.Name = "searchTb";
-            this.searchTb.Size = new System.Drawing.Size(188, 20);
+            this.searchTb.Size = new System.Drawing.Size(163, 20);
             this.searchTb.TabIndex = 12;
             // 
             // searchLbl
@@ -279,9 +282,9 @@
             this.searchLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.searchLbl.Location = new System.Drawing.Point(6, 34);
             this.searchLbl.Name = "searchLbl";
-            this.searchLbl.Size = new System.Drawing.Size(60, 13);
+            this.searchLbl.Size = new System.Drawing.Size(90, 13);
             this.searchLbl.TabIndex = 12;
-            this.searchLbl.Text = "Learner ID:";
+            this.searchLbl.Text = "Enrolled Program:";
             // 
             // kevinTBDataGridView
             // 
@@ -301,10 +304,6 @@
             this.kevinTBDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.kevinTBDataGridView.Size = new System.Drawing.Size(368, 344);
             this.kevinTBDataGridView.TabIndex = 0;
-            // 
-            // kevinTBBindingSource
-            // 
-            this.kevinTBBindingSource.DataSource = typeof(KevinDBModel.KevinTB);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -330,13 +329,25 @@
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             this.dataGridViewTextBoxColumn6.ReadOnly = true;
             // 
+            // kevinTBBindingSource
+            // 
+            this.kevinTBBindingSource.DataSource = typeof(KevinDBModel.KevinTB);
+            // 
+            // browseAllBtn
+            // 
+            this.browseAllBtn.Location = new System.Drawing.Point(294, 236);
+            this.browseAllBtn.Name = "browseAllBtn";
+            this.browseAllBtn.Size = new System.Drawing.Size(75, 23);
+            this.browseAllBtn.TabIndex = 18;
+            this.browseAllBtn.Text = "Browse All";
+            this.browseAllBtn.UseVisualStyleBackColor = true;
+            // 
             // LearnersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(772, 344);
             this.Controls.Add(this.updateBtn);
-            this.Controls.Add(this.addBtn);
             this.Controls.Add(this.learnerDetailsGroupBox);
             this.Controls.Add(this.contentSplitContainer);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -387,6 +398,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.Button browseAllBtn;
     }
 }
 
